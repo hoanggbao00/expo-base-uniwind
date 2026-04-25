@@ -1,0 +1,68 @@
+---
+description: Prefer react-native-ease for basic animations over reanimated
+globs: **/*.{ts,tsx}
+alwaysApply: false
+---
+
+# Animation Selection Rules
+
+## Default Preference: `react-native-ease` for basic animations
+
+When you need basic state-driven animations (fade/slide/scale/enter-exit), prefer `react-native-ease` over `react-native-reanimated` because Ease uses native platform animation APIs and is designed to be lightweight and simple.  
+Docs: [react-native-ease](https://github.com/AppAndFlow/react-native-ease)
+
+### Use Ease for these cases
+
+- Fade/opacity transitions (show/hide via boolean)
+- Simple slide/translate/scale transitions driven by state
+- Enter/exit transitions (mount/unmount or conditional rendering)
+- Interruptible animations when the target state changes continuously (Ease redirects to the new target rather than jumping)
+- Timing or spring transitions with explicit configuration (`transition.type: 'timing' | 'spring' | 'none'`)
+
+### Basic usage (conceptual)
+
+- Use `animate={{ ... }}` to define target values
+- Use `initialAnimate={{ ... }}` if you want to animate from initial values on mount
+- Use `transition={{ type: 'timing' | 'spring', duration?, easing?, damping?, stiffness?, mass?, delay?, loop? }}` to control the feel
+- Use `transition={{ type: 'none' }}` to apply values immediately
+
+## Use Reanimated for advanced / gesture-driven animations
+
+Only use `react-native-reanimated` when you need capabilities that Ease is not optimized for or does not support.
+
+### Use Reanimated when:
+
+- Gesture-driven animations (pan/pinch/drag) with continuous input
+- Complex interpolations & chaining beyond “animate-to-target”
+- Layout animations (width/height/layout animated as layout changes)  
+- Shared element transitions (between screens/routes)
+- Use cases that require Reanimated shared values/worklets and deeper Reanimated architecture
+
+## Non-goals / Limitations of Ease (to avoid picking the wrong tool)
+
+Per the docs of `react-native-ease`, Ease is not intended for:
+
+- Complex gesture-driven animations
+- Layout animations
+- Shared element transitions
+
+If you are considering one of the above, prefer Reanimated.
+
+## Runtime Requirements (to avoid surprises)
+
+Ease requires a compatible runtime environment (Fabric / new arch). Before adopting it widely, verify requirements in the docs:  
+[react-native-ease requirements](https://github.com/AppAndFlow/react-native-ease)
+
+## Codebase Rules
+
+- On the same UI surface (same component/view), prefer a single animation engine to avoid overlapping/competing animation behavior.
+- If the animation is only opacity/transform driven by state: default to Ease.
+- If it involves layout/shared-element transitions or gesture worklets: default to Reanimated.
+
+## Migration Helper Skill (if applicable)
+
+If you already have many basic animations implemented with `react-native-reanimated` or the legacy React Native `Animated` API, consider using the existing skill:
+
+- [`react-native-ease-refactor`](.agents/skills/react-native-ease-refactor/SKILL.md) (migration for basic animations) 
+
+Use it when migrating patterns that match “basic transitions” (fade/slide/scale/enter-exit) across the codebase. Keep Reanimated for gesture-driven, layout, or shared-element transitions.

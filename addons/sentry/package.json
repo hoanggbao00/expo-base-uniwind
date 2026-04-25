@@ -1,0 +1,34 @@
+{
+  "name": "@addons/sentry",
+  "private": true,
+  "version": "1.0.0",
+  "type": "commonjs",
+  "exports": {
+    "./config": {
+      "types": "./dist/config.d.ts",
+      "default": "./dist/config.js"
+    },
+    "./runtime": {
+      "default": "./src/runtime.ts"
+    }
+  },
+  "dependencies": {},
+  "scripts": {
+    "build": "bunx tsgo -p tsconfig.addon.json",
+    "typecheck": "bunx tsgo --noEmit -p tsconfig.addon.json",
+    "setup": "bun run scripts/setup.ts",
+    "postinstall": "bun run build"
+  },
+  "devDependencies": {
+    "@sentry/react-native": "catalog:",
+    "@types/node": "^24.1.0",
+    "@types/react": "catalog:",
+    "typescript": "catalog:"
+  },
+  "peerDependencies": {
+    "expo": "catalog:",
+    "@sentry/react-native": "catalog:",
+    "react": "catalog:",
+    "expo-router": "catalog:"
+  }
+}

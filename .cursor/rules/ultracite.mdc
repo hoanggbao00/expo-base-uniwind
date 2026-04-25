@@ -1,0 +1,98 @@
+---
+description: Ultracite and Biome code quality standards and commands
+alwaysApply: true
+---
+
+# Ultracite Code Standards
+
+This project uses **Ultracite**, a zero-config preset that enforces strict code quality standards through automated formatting and linting (via Biome).
+
+## Commands
+
+- **Format code**: `bun x ultracite fix`
+- **Check for issues**: `bun x ultracite check`
+- **Diagnose setup**: `bun x ultracite doctor`
+
+## Core Principles
+
+Write code that is **accessible, performant, type-safe, and maintainable**, prioritizing clarity and explicit intent.
+
+### Type Safety & Explicitness
+
+- Use explicit types for function parameters and return values when they improve clarity.
+- Prefer `unknown` over `any` when the type is genuinely unknown.
+- Use const assertions (`as const`) for immutable values and literal types.
+- Prefer type narrowing over type assertions.
+- Extract magic numbers/strings into named constants.
+
+### Modern JavaScript/TypeScript
+
+- Use arrow functions for callbacks and small functions.
+- Prefer `for...of` over `.forEach()` and indexed `for` loops when possible.
+- Use optional chaining (`?.`) and nullish coalescing (`??`) for safer property access.
+- Prefer template literals over string concatenation.
+- Use destructuring for objects and arrays.
+- Use `const` by default, `let` only when reassignment is needed, never `var`.
+
+### Async & Promises
+
+- Use `async/await` instead of promise chains.
+- Always `await` promises in async functions and use the return value or handle it.
+- Handle errors in async code with `try/catch`.
+- Do not use async functions as Promise executors.
+
+### React & JSX
+
+- Use function components rather than class components.
+- Call hooks only at the top level, never conditionally.
+- Keep hook dependency arrays correct and complete.
+- Always provide a stable `key` for list items (prefer IDs over indices).
+- Prefer children over "children as prop" when possible.
+- Avoid defining components inside other components for performance and clarity.
+
+### Error Handling & Debugging
+
+- Remove `console.log`, `debugger`, and `alert` from production code.
+- Throw `Error` objects (or typed error classes) with descriptive messages.
+- Use `try/catch` meaningfully; avoid catching just to immediately rethrow.
+- Prefer early returns over deeply nested conditionals.
+
+### Code Organization
+
+- Keep functions focused and with reasonable complexity.
+- Extract complex conditions into well-named booleans.
+- Use early returns to reduce nesting.
+- Avoid nested ternary expressions; prefer simple conditionals.
+
+### Security
+
+- Add `rel="noopener"` when using `target="_blank"` on links.
+- Avoid `dangerouslySetInnerHTML` unless absolutely necessary.
+- Do not use `eval()` or assign directly to `document.cookie`.
+- Validate and sanitize user input.
+
+### Performance
+
+- Avoid creating new arrays/objects with spread inside tight loops.
+- Hoist regex literals instead of creating them inside loops.
+- Prefer specific imports over namespace imports.
+- Avoid barrel files that re-export everything.
+
+### Testing
+
+- Keep assertions inside `it()` / `test()` blocks.
+- Prefer async/await in tests over done callbacks.
+- Do not commit `.only` or `.skip` tests.
+- Keep test suites relatively flat; avoid excessive `describe` nesting.
+
+### When Biome Can't Help
+
+Biome and Ultracite will handle most formatting and many common issues. You should still focus on:
+
+1. Business logic correctness and edge cases.
+2. Meaningful naming and domain modeling.
+3. Architecture and data flow.
+4. User experience: accessibility, performance, and usability.
+5. Documentation for complex logic where needed.
+
+Run `bun x ultracite fix` before committing to ensure compliance.

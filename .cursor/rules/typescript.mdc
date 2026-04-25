@@ -1,0 +1,38 @@
+---
+description: TypeScript preference for interfaces over type aliases for object shapes
+globs: **/*.{ts,tsx}
+alwaysApply: false
+---
+
+# TypeScript Interface Preference
+
+- **Prefer `interface` for object shapes** instead of `type` aliases.
+- **Use `type`** when you specifically need:
+  - Union or intersection types
+  - Mapped types
+  - Branded/opaque types
+  - Literal unions (e.g. specific string values)
+
+## Examples
+
+Prefer this:
+
+```ts
+export interface Hello {
+  pro1: string;
+  pro2?: number;
+  name: SpecificName;
+}
+
+export type SpecificName = "Van A" | "Van B";
+```
+
+Avoid this for plain object shapes:
+
+```ts
+export type Hello = {
+  pro1: string;
+  pro2?: number;
+  name: SpecificName;
+};
+```

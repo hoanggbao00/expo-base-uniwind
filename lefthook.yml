@@ -1,0 +1,15 @@
+pre-commit:
+  jobs:
+    - name: typecheck native
+      run: bun typecheck
+      glob:
+        - "apps/native/*.{js,jsx,ts,tsx,json,jsonc,css}"
+        - "apps/native/**/*.{js,jsx,ts,tsx,json,jsonc,css}"
+      stage_fixed: true
+      
+    - name: lint & format native
+      run: bun x ultracite fix
+      glob:
+        - "apps/native/*.{js,jsx,ts,tsx,json,jsonc,css}"
+        - "apps/native/**/*.{js,jsx,ts,tsx,json,jsonc,css}"
+      stage_fixed: true

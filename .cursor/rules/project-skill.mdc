@@ -1,0 +1,21 @@
+---
+description: Ensure project skill is loaded for repo-specific conventions
+alwaysApply: true
+---
+
+# Project Skill (expo-55-uniwind)
+
+When working in this repository (reading codebase, planning changes, adding features, fixing bugs, adding components, generating component), always follow the project-specific conventions in:
+
+- `.agents/skills/expo-55-uniwind/SKILL.md`
+
+When a task touches a specific domain, also load the matching reference:
+
+- Components & primitives → `.agents/skills/expo-55-uniwind/references/components.md`
+- Colors & theming → `.agents/skills/expo-55-uniwind/references/colors-and-theming.md`
+- Sizing & layout → `.agents/skills/expo-55-uniwind/references/sizing-and-layout.md`
+- State & persistence → `.agents/skills/expo-55-uniwind/references/stores-and-state.md`
+- i18n & translations → `.agents/skills/expo-55-uniwind/references/i18n.md`
+- Linting & formatting → `.agents/skills/expo-55-uniwind/references/biome-conventions.md`
+
+If there is a conflict between generic framework guidance and this repo’s conventions, prefer the repo conventions.

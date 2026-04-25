@@ -1,0 +1,1 @@
+export { withSentryConfig } from "./config";
